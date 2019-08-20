@@ -3,7 +3,7 @@ const express = require('express')
 const server = express()
 server.use(express.json())
 
-var requests = 0
+let requests = 0
 const projects = []
 
 server.use((req, res, next) => {
@@ -20,7 +20,7 @@ function checkProjectExists(req, res, next) {
     }
 
     req.project = project
-    next()
+    return next()
 }
 
 server.get("/projects", (req, res) => {
@@ -30,7 +30,7 @@ server.get("/projects", (req, res) => {
 server.post('/projects', (req, res) => {
     const { id, title } = req.body
     projects.push({id, title, tasks: []})
-    return res.json(projects)
+    return res.json(project)
 })
 
 server.put('/projects/:id', checkProjectExists, (req, res) => {
